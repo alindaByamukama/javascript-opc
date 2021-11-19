@@ -1,0 +1,49 @@
+// what is a prototype?
+
+~ an object that exists on every function in JS.
+~ a functions prototype is the object instance that will become
+the prototype for all objects created using this fucntion as a constructor.
+~ an objects prototype is the object instance from which the object is inherited.
+
+(function() {
+  
+  let myFunction = function() { }
+
+  display(myFunction.prototype);
+
+  let person = {firstName: 'firsty'};
+
+  display(person.prototype);
+
+  display(person.__proto__);
+
+})();
+
+(function() {
+
+  function Person(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  Person.prototype.age = 29;
+
+  display(Person.prototype);
+
+  let jim = new Person('Itsami', 'Marioh');
+  let sofya = new Person('new', 'person');
+  sofya.__proto__.age = 19;
+
+  display(jim.__proto__);
+  display(sofya.__proto__);
+  display(Person.prototype === jim.__proto__);
+})();
+
+/*
+the objects instance, that is the functions prototype, 
+becomes the prototype for all obejcts created from that prototype...!?
+*/
+
+// instance versus prototype properties
+// a graphical overview of prototypes
+
