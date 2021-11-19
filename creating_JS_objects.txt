@@ -1,0 +1,188 @@
+// CREATING JS OBJECTS
+
+// Using Object Literals to create JS Objects
+
+(function() {
+
+  //An object literal
+  let person = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+    isAdult: function() { return this.age >= 18; }
+
+  };
+
+  display(person.isAdult());
+})();
+ 
+  // dyanmic nature of JS
+  person.age = 28;
+  // adding functions to an object, this is a METHOD
+  person.isAdult = function() { return this.age >= 18; }
+
+// Object Literal Property Shorthand
+
+(function() {
+// using property shorthand syntaxt
+function registerUser(fName, lName) {
+  let person = {
+    fName,
+    lName
+  };
+  display(person);
+}
+
+registerUser('Susan', 'Alinda');
+
+})();
+
+// Object literal method decalration shorthand
+
+(function() {
+
+  let person = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+    // method declaration shorthand
+    isAdult() { return this.age >= 18; }
+
+  };
+
+  display(person.isAdult());
+})();
+
+// Inpescting object properties with Object.keys() and for ... in
+
+(function() {
+
+  //An object literal
+  let person = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+    // method declaration shorthand
+    isAdult() { return this.age >= 18; }
+
+  };
+// Returns the names of the enumerable string properties 
+// and methods of an object.
+  display(Object.keys(person));
+})();
+
+/*
+// does the same thing as Object.keys()
+for (let propertyName in person) {
+  display(propertyName);
+}
+*/
+
+// Obejct.assign() and immutability
+
+(function() {
+
+  //An object literal
+  let person = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+    // method declaration shorthand
+    isAdult() { return this.age >= 18; }
+
+  };
+  let person2 = { };
+  Object.assign(person2, person);
+
+  display(person2);
+
+  display(person === person2); 
+  // false, they are the not the same object in memory
+
+})();
+
+(function() {
+
+  //An object literal
+  let person1 = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+    // method declaration shorthand
+    isAdult() { return this.age >= 18; }
+
+  };
+
+  let healthStats = {
+    height: 68,
+    weight: 150
+  };
+  // takes param on the right and merges them with param on the left
+  // immutability of objects using an empty object as the first param
+  function mergeHealthStats(person, healthStats) {
+    return Object.assign({}, person1, healthStats);
+  }
+  let mergedPerson = mergeHealthStats(person1, healthStats);
+
+  display(mergedPerson);
+  display(person1);
+
+})();
+/*
+Obejct.assign() takes in unlimited parameters, 
+as such it used with an empty object as the first parameter 
+to avoid mutatating the other objects
+*/
+
+// Using Constructor functions to create objects
+
+(function() {
+
+  // a constrcutor function 
+  function Person(firstName, lastName, age) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.isAdult = function() { return this.age > 21; }
+  } 
+
+  let susan = new Person('Susan', 'Alinda', 29);
+  let pearl = new Person('Pearl', 'Beads', 16);
+
+  display(susan);
+  display(pearl);
+
+
+})();
+
+/*
+how to create multiple instances of person ojects 
+with the same structuture,
+you can use constructor functions!
+  <new> keyword creates a new empty object 
+  and sets the context of <this> keyword to that object
+*/
+
+// Using Object.create()
+
+(function() {
+
+  //An object literal
+  let person = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+  };
+  
+// using Object.create()
+  let person = Object.create(
+    Object.prototype,
+    {
+      firstName: {value: 'Jim', enumerable:true, writable:true, configurable:true},
+      lastName: {value: 'Beans', enumerable:true, writable:true, configurable:true},
+      age: {value: 58, enumerable:true, writable:true, configurable:true},
+    }
+  );
+
+  display(person.isAdult());
+})();
