@@ -1,0 +1,102 @@
+// using bracket notation to acces JS proerties
+
+(function() {
+
+  let person = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+  };
+  // using bracket notation to access property values
+  // let propertyName = 'firstName';
+  // display(person[propertyName]);
+  // you can use a for ... loop to display all proerty vals with bracket notation
+
+  for (let propertyName in person) {
+    display(propertyName + ': ' + person[propertyName]);
+  }
+
+})();
+
+// modifying properties with property descriptors
+
+(function() {
+
+  let person = {
+    firstName: 'Susan',
+    lastName: 'Alinda',
+    age: 28,
+  };
+
+  // change property attributes
+  Object.defineProperty(person, 'firstName', {writable:false})
+  person.firstName = 'Beans'; 
+  // not-writable/cannot-be-changed/read-only
+  //Object.freeze(person.name); works the same way ... 
+  display(Object.getOwnPropertyDescriptor(person, "firstName"));
+
+})();
+
+/*
+Gets the own property descriptor of the specified object. 
+An own property descriptor is one that is defined directly on the object 
+and is not inherited from the object's prototype.
+Object {
+  value: Susan
+  writable: true
+  enumerable: true
+  configurable: true
+}
+*/
+
+/*
+writable: when set to false sets the property to READONLY and it cannot be changed
+enumerable: when set to false a property does not get displayed, 
+it does not show up in object.keys 
+and affects json serialization of the object
+configurable: when set to false it prevents change 
+configurable and enumerable property descriptors - also you cannot delete it!
+However you can change the writable descriptor...
+*/
+
+// Creating porerty getters and setters 
+
+(function() {
+
+  let person = {
+    name: {
+      first: 'Susan',
+      last: 'Alinda'
+    },
+    age: 28
+  };
+  // what if we want to know this persons full name?
+
+  Object.defineProperty(person, 'fullName', 
+  {
+    get: function() {
+      return this.name.first + ' ' + this.name.last;
+      },
+      // a set function thats going to set proprties on our person object
+      set: function(value) {
+        var nameParts = value.split(' ');
+        this.name.first = nameParts[0];
+        this.name.last = nameParts[1];
+      }
+
+  });
+// now we can change a persons full name using the set function
+
+  person.fullName = 'firstName lastName';
+
+  display(person.fullName);
+  display(person.name.first);
+  display(person.name.last);
+
+
+})();
+
+/*
+getters and setters!
+
+*/
