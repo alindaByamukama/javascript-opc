@@ -97,6 +97,9 @@ However you can change the writable descriptor...
 })();
 
 /*
-getters and setters!
+summary:
+~ bracket notation
+~ change property descriptors
+~ create properties backed by functions with getters and setters
 
 */
