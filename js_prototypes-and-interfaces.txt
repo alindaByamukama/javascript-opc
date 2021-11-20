@@ -47,3 +47,46 @@ becomes the prototype for all obejcts created from that prototype...!?
 // instance versus prototype properties
 // a graphical overview of prototypes
 
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+  prototype: 
+  /*
+   the function's prototype is the object instance that will 
+   become the prototype for all objects created using this function
+  */
+}
+
+Person.prototype.age = 29;
+
+let jim = new Person('Jim', 'Cooper');
+let sofia = new Person('Sofia', 'Cooper');
+
+/*
+  (jim)
+  __proto__: Person
+  firstName: 'Jim'
+  lastName: 'Cooper'
+
+  (sofia)
+  __proto__: Person
+  firstName: 'Sofia'
+  lastName: 'Cooper'
+
+  these point to (Person)
+  age: 29
+*/
+
+Person.prototype = {age: 18};
+
+let kris = new Person('kris', 'Konner');
+
+/*
+  (kris)
+  __proto__: Person
+  firstName: Kris
+  lastName: Konner
+
+  this points to (Person)
+  age: 18
+*/
