@@ -1,0 +1,81 @@
+// using the math object
+
+(function() {
+    // shows pi upto 15th decimal
+    display(Math.PI);
+    // returns the largest volume out of numerical vals
+    display(Math.max(2, 42, 29));
+    // rounds up
+    display(Math.round(29.6));
+
+}) ();
+
+// managing dates with the date object
+
+(function() {
+    // y/m/d/h/m/s/ms
+    // the month parameter is ZERO BASED
+    let date = new Date(2050, 3, 25, 13, 1,30,50);
+    display(date.toString());
+
+    date.setMonth(5); //June
+    display(date.toString());
+
+    display().... // return vals of the computer they are run on
+    - date.getFullYear()
+    - date.getMonth() // ZERO BASED
+    - date.getDate()
+    - date.getHours()
+    - date.getMinutes()
+    - date.getSeconds()
+    - date.getMilliseconds()
+
+    // there are aslo UTC versions of the above
+
+}) ();
+
+// regular expression object - validating strings
+
+(function() {
+  
+  function checkPasswordComplexity(password) {
+
+    // let regex = new Regex('^(?=.*[a-z])(?=.[A-Z])(?=.*\\d).{8,}$');
+    let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    // returns a boolean indicating whether the string contains text that match the regex
+    return regex.test(password);
+  }
+    display(checkPasswordComplexity('Stronger1'));
+
+}) ();
+
+// Regular expression: tests/validation and search strings
+
+// regular expression object 
+// searching strings with RegExp.exec() function
+(function() {
+  
+  function findAlerts(logData) {
+    // regex capture groups to retrun data from the input string
+    let regex = /ERROR(.*?):(.*?);/g;
+
+    // displayRegexArray(regex.exec(logData));
+    // display('----------------------------------');
+    // display(regex.exec(logData));
+
+    let result = regex.exec(logData);
+    while(result !== null) {
+      display(result[1]);
+      display(result[2]);
+      display('----------------------------------');
+      result = regex.exec(logData);
+
+    }
+  }
+
+  let logData = 'INFO:Ok;ERROR(HIGH):Broken;ERROR(MED):Upset; ERROR(LOW):Suspect;';
+  findAlerts(logData);
+
+}) ();
+// statefull - you can exec multiple times and keep finding multiple matches in the string

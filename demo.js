@@ -1,64 +1,28 @@
 'use strict'; 
+// regular expression object 
+// searching strings with RegExp.exec() function
 (function() {
-
-  class Person {
-    constructor(firstName, lastName, age) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.age = age;
-    }
-
-    // add a static adult age property
-    static adultAge = 18;
-
-    // getters and setters live on the prototype
-    get fullName() {
-      return this.firstName + ' ' + this.lastName;
-    }
-    set fullName(fullName) {
-      var nameParts = fullName.split(' ');
-      this.firstName = nameParts[0];
-      this.lastName = nameParts[1];
-    }
-    // adding functions 
-    isAdult() {
-      return this.age >= 18;
-    }
-  }
-  // display static property
-  display(Person.adultAge);
-
-  // inheritance w js classes
-  class Student extends Person {
-    constructor(firstName, lastName, age) {
-      // call the constructor on the class we are extending
-      super(firstName, lastName, age);
-      this._enrolledCourses = [];
-    }
-
-    // declare function with keyword static
-    static fromPerson(person) {
-      return new Student(person.firstName, person.lastName, person.age);
-    }
-
-    enroll(courseId) {
-      this._enrolledCourses.push(courseId);
-    }
-
-    getCourses() {
-      return this.fullName + "'s enrolled courses are : " +
-        this._enrolledCourses.join(', ');
-    }
-  }
-
-  let sofya = new Person('Sofya', 'Coolio', 43);
-  // static function call
-  let sofyaStudent = Student.fromPerson(sofya);
-
-  display(sofyaStudent);
-
-})();
-
-/*
   
-*/
+  function findAlerts(logData) {
+    // regex capture groups to retrun data from the input string
+    let regex = /ERROR(.*?):(.*?);/g;
+
+    // displayRegexArray(regex.exec(logData));
+    // display('----------------------------------');
+    // display(regex.exec(logData));
+
+    let result = regex.exec(logData);
+    while(result !== null) {
+      display(result[1]);
+      display(result[2]);
+      display('----------------------------------');
+      result = regex.exec(logData);
+
+    }
+  }
+
+  let logData = 'INFO:Ok;ERROR(HIGH):Broken;ERROR(MED):Upset; ERROR(LOW):Suspect;';
+  findAlerts(logData);
+
+}) ();
+// statefull - you can exec multiple times and keep finding multiple matches in the string
