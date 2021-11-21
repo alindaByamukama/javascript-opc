@@ -1,0 +1,137 @@
+// creating objects with classes
+
+(function() {
+  // creating objects
+  class Person {
+    constructor(firstName, lastName, age) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.age = age;
+
+    }
+  }
+
+  let sofya = new Person('Sofya', 'Coolio');
+  display(sofya);
+
+})();
+
+// getters and setters
+
+(function() {
+  // creating objects
+  class Person {
+    constructor(firstName, lastName, age) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.age = age;
+
+    }
+    // getters and setters
+    get fullName() {
+      return this.firstName + ' ' + this.lastName;
+    }
+    set fullName(fullName) {
+      var nameParts = fullName.split(' ');
+      this.firstName = nameParts[0];
+      this.lastName = nameParts[1];
+    }
+  }
+
+  let sofya = new Person('Sofya', 'Coolio');
+  sofya.fullName = 'Paradise Falls';
+  display(sofya.fullName);
+
+})();
+
+// adding functions to our class
+
+(function() {
+  // creating objects
+  class Person {
+    constructor(firstName, lastName, age) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.age = age;
+
+    }
+    // getters and setters
+    get fullName() {
+      return this.firstName + ' ' + this.lastName;
+    }
+    set fullName(fullName) {
+      var nameParts = fullName.split(' ');
+      this.firstName = nameParts[0];
+      this.lastName = nameParts[1];
+    }
+    // adding functions 
+    isAdult() {
+      return this.age >= 18;
+    }
+  }
+
+  let sofya = new Person('Sofya', 'Coolio', 43);
+  sofya.fullName = 'Paradise Falls';
+  display(sofya.isAdult());
+
+})();
+
+// modfying property descriptors
+
+  // modify property descriptor on classes
+  Object.defineProperty(Person.prototype, 'fullName', {enumerable:true});
+
+// inheritance with js classes
+
+(function() {
+
+  class Person {
+    constructor(firstName, lastName, age) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.age = age;
+
+    }
+    // getters and setters live on the prototype
+    get fullName() {
+      return this.firstName + ' ' + this.lastName;
+    }
+    set fullName(fullName) {
+      var nameParts = fullName.split(' ');
+      this.firstName = nameParts[0];
+      this.lastName = nameParts[1];
+    }
+    // adding functions 
+    isAdult() {
+      return this.age >= 18;
+    }
+  }
+
+  // inheritance w js classes
+  class Student extends Person { // student now inherits from the Person class
+    constructor(firstName, lastName, age) {
+      // call the constructor on the class we are extending
+      super(firstName, lastName, age);
+      this._enrolledCourses = [];
+    }
+
+    enroll(courseId) {
+      this._enrolledCourses.push(courseId);
+    }
+
+    getCourses() {
+      return this.fullName + "'s enrolled courses are : " +
+        this._enrolledCourses.join(', ');
+    }
+  }
+
+  let sofya = new Student('Sofya', 'Coolio', 43); // create a new Student
+
+  sofya.enroll('CS50'); // enroll sofya into a course
+
+  display(sofya.getCourses());
+  display(sofya);
+
+})();
+
+// using static properties and methods

@@ -1,47 +1,61 @@
 'use strict'; 
 (function() {
 
-  function Person(firstName, lastName, age) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.age = age;
-    Object.defineProperty(this, 'fullName', {
-      get: function() {
-        return this.firstName + ' ' + this.lastName
-      },
-      enumerable: true
-    });
+  class Person {
+    constructor(firstName, lastName, age) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.age = age;
+    }
+
+    // add a static adult age property
+    static adultAge = 18;
+
+    // getters and setters live on the prototype
+    get fullName() {
+      return this.firstName + ' ' + this.lastName;
+    }
+    set fullName(fullName) {
+      var nameParts = fullName.split(' ');
+      this.firstName = nameParts[0];
+      this.lastName = nameParts[1];
+    }
+    // adding functions 
+    isAdult() {
+      return this.age >= 18;
+    }
   }
+  // display static property
+  display(Person.adultAge);
 
-  function Student(firstName, lastName, age) {
-    Person.call(this, firstName, lastName, age);
-    this._enrolledCourses = [];
+  // inheritance w js classes
+  class Student extends Person {
+    constructor(firstName, lastName, age) {
+      // call the constructor on the class we are extending
+      super(firstName, lastName, age);
+      this._enrolledCourses = [];
+    }
 
-    this.enroll = function(courseId) {
+    // declare function with keyword static
+    static fromPerson(person) {
+      return new Student(person.firstName, person.lastName, person.age);
+    }
+
+    enroll(courseId) {
       this._enrolledCourses.push(courseId);
-    };
+    }
 
-    this.getCourses = function() {
-      return this.fullName + "'s enrolled courses are: " +
-      this._enrolledCourses.join(', ');
-    };
+    getCourses() {
+      return this.fullName + "'s enrolled courses are : " +
+        this._enrolledCourses.join(', ');
+    }
   }
-// create a prototype inheritance chain
-Student.prototype = Object.create(Person.prototype);
-Student.prototype.constructor = Student;
 
-// create a new student
-let sofya = new Student('Sofya', 'Carter', 34);
+  let sofya = new Person('Sofya', 'Coolio', 43);
+  // static function call
+  let sofyaStudent = Student.fromPerson(sofya);
 
-sofya.enroll('AH101');
-sofya.enroll('AD205');
-sofya.enroll('CM301');
-
-display(sofya.getCourses());
-
-// display(sofya);
-// display(sofya.__proto__); // Student { }
-// display(sofya.__proto__.__proto__); // Person { }
+  display(sofyaStudent);
 
 })();
 
